@@ -1,4 +1,6 @@
 <launch>
+  <env name="GAZEBO_MODEL_PATH" value="$(find turtle_launch)/models"/>
+
   <arg name="world_file"  value="$(find turtle_launch)/world/test_1.world"/>
 
   <arg name="base"      value="$(optenv TURTLEBOT_BASE kobuki)"/> <!-- create, roomba -->
