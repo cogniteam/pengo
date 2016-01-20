@@ -3,10 +3,20 @@
   <model name="chair">
     <static>true</static>
     <link name="link">
+      <inertial>
+	<mass value="10"/>
+	<inertia
+	  ixx="1"
+	  ixy="0.0" 
+	  ixz="0.0"
+	  iyy="1"
+	  iyz="0.0"
+	  izz="1" />
+      </inertial>
       <collision name="collision">
         <geometry>
           <mesh>
-            <scale>0.25 0.25 0.25</scale>
+            <scale>0.06 0.06 0.06</scale>
             <uri>model://chair/chair.dae</uri>
           </mesh>
         </geometry>
@@ -14,11 +24,11 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <scale>0.25 0.25 0.25</scale>
+            <scale>0.06 0.06 0.06</scale>
             <uri>model://chair/chair.dae</uri>
           </mesh>
         </geometry>
-      </visual>
+      </visual>4999
     </link>
   </model>
 </sdf>
