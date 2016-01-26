@@ -210,6 +210,7 @@
       <parent link="${parent}"/>
       <child link="plate_top_link"/>
     </joint>  
+    
     <link name="plate_top_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -232,29 +233,32 @@
       </inertial>
     </link>
        
-    <gazebo>
+
     <link name="rplidar_link">
-      <pose>0.08 0 0.42 0 0 0</pose>
       <visual name="visual">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-	  <cylinder>
-	    <radius>0.035</radius>
-	    <length>0.02</length>
-	  </cylinder>
+	  <cylinder length="0.02" radius="0.035"/>
         </geometry>
       </visual>
       <collision name="collision">
-        <geometry>
-	  <cylinder>
-	    <radius>0.035</radius>
-	    <length>0.02</length>
-	  </cylinder>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<geometry>
+	  <cylinder length="0.02" radius="0.035"/>
         </geometry>
-      </collision>
+      </collision>      
+    </link>
 
-      <sensor name="rplidar" type="ray">
-        <ray>
-          <scan>
+    <joint name="body_to_hokuyo" type="fixed">
+      <origin xyz="0.08 0.0  0.1974" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="rplidar_link"/>
+    </joint>
+
+      <gazebo reference="rplidar_link">
+	<sensor name="rplidar" type="ray">
+	  <ray>
+	    <scan>
             <horizontal>
               <samples>360</samples>
               <resolution>1</resolution>
@@ -282,27 +286,12 @@
           <gaussianNoise>0.005</gaussianNoise>
           <alwaysOn>true</alwaysOn>
           <updateRate>6</updateRate>
-          <topicName>/scan_rplidar</topicName>
-          <frameName>/base_link</frameName>
+          <topicName>/rplidar_scan</topicName>
+          <frameName>/rplidar_link</frameName>
           <hokuyoMinIntensity>101</hokuyoMinIntensity>
         </plugin>
-
       </sensor>
-
-    </link>
-
-    <joint name="body_to_hokuyo" type="revolute">
-      <child>rplidar_link</child>
-      <parent>plate_top_link</parent>
-      <axis>
-        <xyz>0 0 0</xyz>
-        <limit>
-          <upper>0</upper>
-          <lower>0</lower>
-        </limit>
-      </axis>
-    </joint>
-  </gazebo>
-
+    </gazebo>
+    
   </xacro:macro>
 </robot>
