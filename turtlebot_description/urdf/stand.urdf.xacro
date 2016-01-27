@@ -4,28 +4,28 @@
     <link name="realsense_base_stand">
       <visual>
 	<geometry>
-	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/base.stl"></mesh>
+	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/base.dae"></mesh>
 	</geometry>
       </visual>
     </link>
     <link name="realsense_fork_stand">
       <visual>
 	<geometry>
-	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/fork.stl"></mesh>
+	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/fork.dae"></mesh>
 	</geometry>
       </visual>
     </link>
     <link name="realsense_plate_stand">
       <visual>
 	<geometry>
-	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/plate.stl"></mesh>
+	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/plate.dae"></mesh>
 	</geometry>
       </visual>
     </link>   
     <link name="realsense_screen_stand">
       <visual>
 	<geometry>
-	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/screen.stl"></mesh>
+	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/screen.dae"></mesh>
 	</geometry>
       </visual>
     </link>   
