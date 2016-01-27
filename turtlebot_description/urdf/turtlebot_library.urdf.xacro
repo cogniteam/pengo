@@ -12,6 +12,8 @@
   <!-- Stacks -->
   <xacro:include filename="$(find turtlebot_description)/urdf/stacks/circles.urdf.xacro"/>
   <xacro:include filename="$(find turtlebot_description)/urdf/stacks/hexagons.urdf.xacro"/>
+  <!-- Stand for realsense -->
+  <xacro:include filename="$(find turtlebot_description)/urdf/stand.urdf.xacro" />
   <!-- 3D Sensors -->
   <xacro:include filename="$(find turtlebot_description)/urdf/sensors/kinect.urdf.xacro"/>
   <xacro:include filename="$(find turtlebot_description)/urdf/sensors/realsense.urdf.xacro"/>

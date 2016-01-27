@@ -22,6 +22,13 @@
 	</geometry>
       </visual>
     </link>   
+    <link name="realsense_screen_stand">
+      <visual>
+	<geometry>
+	  <mesh filename="file://$(find turtlebot_description)/meshes/stand/screen.stl"></mesh>
+	</geometry>
+      </visual>
+    </link>   
     <joint name="parent_base_joint" type="fixed">
       <parent link="${parent}"/>
       <child link="realsense_base_stand"/>
@@ -40,6 +47,12 @@
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <axis xyz="0 1 0" />
     </joint>
+    <joint name="plate_screen_joint" type="fixed">
+      <parent link="realsense_plate_stand"/>
+      <child link="realsense_screen_stand"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0" />
+    </joint>
     <gazebo reference="realsense_base_stand">
       <material>Gazebo/Grey</material>
     </gazebo>
@@ -47,6 +60,9 @@
       <material>Gazebo/Grey</material>
     </gazebo>
     <gazebo reference="realsense_plate_stand">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    <gazebo reference="realsense_screen_stand">
       <material>Gazebo/Grey</material>
     </gazebo>
   </xacro:macro>
