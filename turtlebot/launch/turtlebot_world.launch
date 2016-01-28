@@ -35,4 +35,9 @@
     <remap from="image" to="/camera/depth/image_raw"/>
     <remap from="scan" to="/scan"/>
   </node>
+  
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+  args="$(find turtlebot)/config/camera_config.yaml" output="screen" respawn="true"/>
+	
+	
 </launch>

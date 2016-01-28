@@ -1,0 +1,13 @@
+joint_state_ctrlr:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+stand/base_rotation:
+  joint: base_fork_joint
+  type: velocity_controllers/JointVelocityController
+  pid: {p: 100.0, i: 0.01, d: 10.0}
+  
+stand/gimbal_rotation:
+  joint: fork_plate_joint
+  type: velocity_controllers/JointVelocityController
+  pid: {p: 100.0, i: 0.01, d: 10.0}
