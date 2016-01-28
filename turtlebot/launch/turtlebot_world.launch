@@ -38,6 +38,14 @@
   
   <node name="controller_spawner" pkg="controller_manager" type="spawner"
   args="$(find turtlebot)/config/camera_config.yaml" output="screen" respawn="true"/>
-	
+
+  <node name="camera_movement_node" pkg="camera_movement_controller" type="camera_movement_node">
+    <param name="base_vel" value="0.8"/>
+    <param name="gimbal_vel" value="0.8"/>
+    <param name="base_angle_limit/min" value="-1.57"/>
+    <param name="base_angle_limit/max" value="1.57"/>
+    <param name="gimbal_angle_limit/min" value="-1.57"/>
+    <param name="gimbal_angle_limit/max" value="1.57"/>
+  </node>
 	
 </launch>
