@@ -104,14 +104,31 @@
 
 	}
 
-	void CameraMovement::on_new_base_angle (std_msgs::Float64::Ptr new_base_angle){
-		if (target_base_angle == new_base_angle->data){
+	double CameraMovement::deg2rad (double deg){
+		return M_PI/180*deg;
+	}
+
+	double CameraMovement::rad2deg (double rad){
+		return 180/M_PI*rad;
+	}
+
+	void CameraMovement::on_new_angle (geometry_msgs::Vector3::Ptr msg){
+		double new_base_angle = deg2rad(msg->y);
+		double new_gimbal_angle = deg2rad(msg->x);
+		on_new_base_angle (new_base_angle);
+		on_new_gimbal_angle (new_gimbal_angle);
+	}
+
+
+
+	void CameraMovement::on_new_base_angle (double new_base_angle){
+		if (target_base_angle == new_base_angle){
 			return;
 		}
 
 		std_msgs::Float64 msg;
 		msg.data = 0;
-		target_base_angle = new_base_angle->data;
+		target_base_angle = new_base_angle;
 		if (target_base_angle > current_base_angle){
 			msg.data = base_vel;
 			base_rotate_direction = true;
@@ -123,14 +140,14 @@
 		base_vel_pub.publish (msg);
 	}
 
-	void CameraMovement::on_new_gimbal_angle (std_msgs::Float64::Ptr new_gimbal_angle){
-		if (target_gimbal_angle == new_gimbal_angle->data){
+	void CameraMovement::on_new_gimbal_angle (double new_gimbal_angle){
+		if (target_gimbal_angle == new_gimbal_angle){
 			return;
 		}
 
 		std_msgs::Float64 msg;
 		msg.data = 0;
-		target_gimbal_angle = new_gimbal_angle->data;
+		target_gimbal_angle = new_gimbal_angle;
 		if (target_gimbal_angle > current_gimbal_angle){
 			msg.data = gimbal_vel;
 			gimbal_rotate_direction = true;
@@ -159,8 +176,7 @@
 		load_params ();
 		joint_state_sub = node.subscribe ("/joint_states", 1,  &CameraMovement::on_new_joint_state, this);
 
-		base_angle_sub = node.subscribe ("/base_angle", 1,  &CameraMovement::on_new_base_angle, this);
-		gimbal_angle_sub = node.subscribe ("/gimbal_angle", 1,  &CameraMovement::on_new_gimbal_angle, this);
+		angle_sub = node.subscribe ("/set_angle", 1,  &CameraMovement::on_new_angle, this);
 
 		base_vel_pub = node.advertise<std_msgs::Float64>("/stand/base_rotation/command", 1, false);
 		gimbal_vel_pub = node.advertise<std_msgs::Float64>("/stand/gimbal_rotation/command", 1, false);

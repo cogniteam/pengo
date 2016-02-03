@@ -11,15 +11,14 @@
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
 #include <std_msgs/Float64.h>
-
+#include <geometry_msgs/Vector3.h>
 
 class CameraMovement {
 private:
 	ros::NodeHandle node;
 
 	ros::Subscriber joint_state_sub;
-	ros::Subscriber base_angle_sub;
-	ros::Subscriber gimbal_angle_sub;
+	ros::Subscriber angle_sub;
 
 	ros::Publisher base_vel_pub;
 	ros::Publisher gimbal_vel_pub;
@@ -41,8 +40,11 @@ private:
 public:
 	void load_params ();
 	void on_new_joint_state (sensor_msgs::JointState::Ptr new_state);
-	void on_new_base_angle (std_msgs::Float64::Ptr new_base_angle);
-	void on_new_gimbal_angle (std_msgs::Float64::Ptr new_gimbal_angle);
+	void on_new_base_angle (double new_base_angle);
+	void on_new_gimbal_angle (double new_gimbal_angle);
+	void on_new_angle (geometry_msgs::Vector3::Ptr msg);
+	double deg2rad (double deg);
+	double rad2deg (double rad);
 	CameraMovement (ros::NodeHandle node);
 };
 
