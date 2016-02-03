@@ -41,7 +41,7 @@
   
   <xacro:macro name="stack_middle_pole" params="parent number x_loc y_loc z_loc">  
     <joint name="pole_middle_${number}_joint" type="fixed">
-      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0" />
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 3.1415 0" />
       <parent link="${parent}"/>
       <child link="pole_middle_${number}_link"/>
     </joint>
@@ -166,13 +166,10 @@
       </inertial>
     </link>
     
-    <stack_middle_pole parent="${parent}" number="0" x_loc= "0.0381" y_loc= "0.1505" z_loc="0.1640"/>
-    <stack_middle_pole parent="${parent}" number="1" x_loc= "0.0381" y_loc="-0.1505" z_loc="0.1640"/>
-    <stack_middle_pole parent="${parent}" number="2" x_loc="-0.0381" y_loc= "0.1505" z_loc="0.1640"/>
-    <stack_middle_pole parent="${parent}" number="3" x_loc="-0.0381" y_loc="-0.1505" z_loc="0.1640"/>
+
     
     <joint name="plate_middle_joint" type="fixed">
-      <origin xyz="-0.01364 0.0 0.1874" rpy="0 0 0"/>
+      <origin xyz="-0.01364 0.0 0.34" rpy="0 0 0"/>
       <parent link="${parent}"/>
       <child link="plate_middle_link"/>
     </joint>  
@@ -197,13 +194,24 @@
                  izz="0.006656" />
       </inertial>  
     </link>
+
+
+
+    <stack_top_pole parent="${parent}" number="0" x_loc= "0.0381" y_loc= "0.1505" z_loc="0.235"/>
+    <stack_top_pole parent="${parent}" number="1" x_loc= "0.0381" y_loc="-0.1505" z_loc="0.235"/>
+    <stack_top_pole parent="${parent}" number="2" x_loc="-0.0381" y_loc= "0.1505" z_loc="0.235"/>
+    <stack_top_pole parent="${parent}" number="3" x_loc="-0.0381" y_loc="-0.1505" z_loc="0.235"/>
+
+
+
     
-    <stack_top_pole parent="${parent}" number="0" x_loc= "0.0381" y_loc= "0.1505" z_loc="0.2920"/>
-    <stack_top_pole parent="${parent}" number="1" x_loc= "0.0381" y_loc="-0.1505" z_loc="0.2920"/>
-    <stack_top_pole parent="${parent}" number="2" x_loc="-0.0381" y_loc= "0.1505" z_loc="0.2920"/>
-    <stack_top_pole parent="${parent}" number="3" x_loc="-0.0381" y_loc="-0.1505" z_loc="0.2920"/>
-    <stack_3d_sensor_pole parent="${parent}" number="0" x_loc="-0.1024" y_loc= "0.098" z_loc="0.2372"/>
-    <stack_3d_sensor_pole parent="${parent}" number="1" x_loc="-0.1024" y_loc="-0.098" z_loc="0.2372"/>
+    <stack_middle_pole parent="${parent}" number="0" x_loc= "0.0381" y_loc= "0.1505" z_loc="0.363"/>
+    <stack_middle_pole parent="${parent}" number="1" x_loc= "0.0381" y_loc="-0.1505" z_loc="0.363"/>
+    <stack_middle_pole parent="${parent}" number="2" x_loc="-0.0381" y_loc= "0.1505" z_loc="0.363"/>
+    <stack_middle_pole parent="${parent}" number="3" x_loc="-0.0381" y_loc="-0.1505" z_loc="0.363"/>
+    
+<!--    <stack_3d_sensor_pole parent="${parent}" number="0" x_loc="-0.12" y_loc= "-0.015" z_loc="0.29"/>
+    <stack_3d_sensor_pole parent="${parent}" number="1" x_loc="-0.12" y_loc="0.015" z_loc="0.29"/>-->
     
     <joint name="plate_top_joint" type="fixed">
       <origin xyz="-0.01364 0.0  0.3966" rpy="0 0 0"/>
@@ -238,7 +246,7 @@
       <visual name="visual">
 	<origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-	  <cylinder length="0.02" radius="0.035"/>
+	  <mesh filename="package://turtlebot_description/meshes/sensors/rp_lidar.dae"/>
         </geometry>
       </visual>
       <collision name="collision">
