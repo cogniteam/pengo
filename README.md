@@ -1,17 +1,17 @@
-# Instalation
+# Installation
 Install turtlebot_simulator package
 ```
    $ sudo apt-get install ros-indigo-turtlebot-simulator
    $ sudo apt-get install ros-indigo-turtlebot-apps ros-indigo-turtlebot-rviz-launchers
 ```
-Copy Turtlebot project from the GitHub
+Copy Pengo project from the GitHub
 ```
    $ cd
    $ mkdir -p workspace/src
    $ cd workspace/src
-   $ git clone https://github.com/cogniteam/turtlebot.git
+   $ git clone https://github.com/cogniteam/pengo.git
 ```
-Compile Turtlebot project
+Compile Pengo project
 ```
    $ cd ~/workspace
    $ catkin_make
@@ -22,7 +22,7 @@ Compile Turtlebot project
 In first terminal window (to run environment)
 ```
    $ source ~/workspace/devel/setup.bash
-   $ roslaunch turtlebot turtlebot_world.launch
+   $ roslaunch pengo pengo_world.launch
 ```
 In second terminal window (to control robot's movement from the keyboard)
 ```

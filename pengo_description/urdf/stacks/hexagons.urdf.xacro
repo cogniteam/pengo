@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<!--
+  Hexagon stacks
+ -->
+<robot name="stack_hexagons" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find pengo_description)/urdf/common_properties.urdf.xacro"/>
+  
+  <!-- Xacro properties -->
+  <xacro:property name="M_SCALE" value="0.001"/>
+  
+  <!-- Xacro macros -->
+  <!-- Pole macros -->
+  <xacro:macro name="stack_bottom_pole" params="parent number x_loc y_loc z_loc">
+    <joint name="pole_bottom_${number}_joint" type="fixed">
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="pole_bottom_${number}_link"/>
+    </joint>
+    <link name="pole_bottom_${number}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://pengo_description/meshes/stacks/hexagons/pole_bottom.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.0492" radius="0.006"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.008"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.000001686" ixy="0.0" ixz="0.0"
+                 iyy="0.000001686" iyz="0.0"
+                 izz="0.000000144"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+  
+  <xacro:macro name="stack_middle_pole" params="parent number x_loc y_loc z_loc">  
+    <joint name="pole_middle_${number}_joint" type="fixed">
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 3.1415 0" />
+      <parent link="${parent}"/>
+      <child link="pole_middle_${number}_link"/>
+    </joint>
+    <link name="pole_middle_${number}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 ${M_PI} 0"/>
+        <geometry>
+          <mesh filename="package://pengo_description/meshes/stacks/hexagons/pole_middle.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.0608" radius="0.006"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.012"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.000003805" ixy="0.0" ixz="0.0"
+                 iyy="0.000003805" iyz="0.0"
+                 izz="0.000000216"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="stack_top_pole" params="parent number x_loc y_loc z_loc">  
+    <joint name="pole_top_${number}_joint" type="fixed">
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="pole_top_${number}_link"/>
+    </joint>
+    <link name="pole_top_${number}_link">
+      <visual>
+        <origin xyz=" 0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://pengo_description/meshes/stacks/hexagons/pole_top.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.2032" radius="0.006"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.060"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.000206991" ixy="0.0" ixz="0.0"
+                 iyy="0.000206991" iyz="0.0"
+                 izz="0.000001080"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="stack_3d_sensor_pole" params="parent number x_loc y_loc z_loc">
+    <joint name="pole_kinect_${number}_joint" type="fixed">
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="pole_kinect_${number}_link"/>
+    </joint>
+    <link name="pole_kinect_${number}_link">
+      <visual>
+        <origin xyz="0 0 -0.01" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://pengo_description/meshes/sensors/sensor_pole.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.0936" radius="0.006"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.020"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.000014782" ixy="0.0" ixz="0.0"
+                 iyy="0.000014782" iyz="0.0"
+                 izz="0.000000360"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <!-- 
+    Stack macro - all the components relative transforms are made with respect 
+    to the parent link (usually base_link). They could be made relative to each
+    other, but there is no necessary reason to do so.
+  -->
+  <xacro:macro name="stack_hexagons" params="parent">
+    <stack_bottom_pole parent="${parent}" number="0" x_loc= "0.120" y_loc= "0.082" z_loc="0.1028"/>
+<!--     <stack_bottom_pole parent="${parent}" number="1" x_loc= "0.055" y_loc= "0.120" z_loc="0.1028"/> -->
+    <stack_bottom_pole parent="${parent}" number="2" x_loc="-0.055" y_loc= "0.120" z_loc="0.1028"/>
+    <stack_bottom_pole parent="${parent}" number="3" x_loc= "0.120" y_loc="-0.082" z_loc="0.1028"/>
+<!--     <stack_bottom_pole parent="${parent}" number="4" x_loc= "0.055" y_loc="-0.120" z_loc="0.1028"/> -->
+    <stack_bottom_pole parent="${parent}" number="5" x_loc="-0.055" y_loc="-0.120" z_loc="0.1028"/>
+    
+    <joint name="plate_bottom_joint" type="fixed">
+      <origin xyz="0.02364 0.0 0.1306" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="plate_bottom_link"/>
+    </joint>  
+    <link name="plate_bottom_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://pengo_description/meshes/stacks/hexagons/plate_bottom.dae"/>
+        </geometry>
+      </visual>  
+      <collision>
+        <origin xyz="-0.02364 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.006" radius="0.170"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.520" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003328" ixy="0.0" ixz="0.0"
+                 iyy="0.003328" iyz="0.0"
+                 izz="0.006656" />
+      </inertial>
+    </link>
+    
+
+    
+<!--    <joint name="plate_middle_joint" type="fixed">
+      <origin xyz="-0.01364 0.0 0.34" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="plate_middle_link"/>
+    </joint>  
+    <link name="plate_middle_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://pengo_description/meshes/stacks/hexagons/plate_middle.dae"/>
+        </geometry>
+      </visual>  
+      <collision>
+        <origin xyz="0.01364 0.0 0.0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.006" radius="0.170"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.520" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003328" ixy="0.0" ixz="0.0"
+                 iyy="0.003328" iyz="0.0"
+                 izz="0.006656" />
+      </inertial>  
+    </link>-->
+
+
+
+    <stack_top_pole parent="${parent}" number="0" x_loc= "0.0381" y_loc= "0.1505" z_loc="0.235"/>
+    <stack_top_pole parent="${parent}" number="1" x_loc= "0.0381" y_loc="-0.1505" z_loc="0.235"/>
+    <stack_top_pole parent="${parent}" number="2" x_loc="-0.0381" y_loc= "0.1505" z_loc="0.235"/>
+    <stack_top_pole parent="${parent}" number="3" x_loc="-0.0381" y_loc="-0.1505" z_loc="0.235"/>
+
+
+
+    
+    <stack_middle_pole parent="${parent}" number="0" x_loc= "0.0381" y_loc= "0.1505" z_loc="0.356"/>
+    <stack_middle_pole parent="${parent}" number="1" x_loc= "0.0381" y_loc="-0.1505" z_loc="0.356"/>
+    <stack_middle_pole parent="${parent}" number="2" x_loc="-0.0381" y_loc= "0.1505" z_loc="0.356"/>
+    <stack_middle_pole parent="${parent}" number="3" x_loc="-0.0381" y_loc="-0.1505" z_loc="0.356"/>
+    
+<!--    <stack_3d_sensor_pole parent="${parent}" number="0" x_loc="-0.12" y_loc= "-0.015" z_loc="0.29"/>
+    <stack_3d_sensor_pole parent="${parent}" number="1" x_loc="-0.12" y_loc="0.015" z_loc="0.29"/>-->
+    
+    <joint name="plate_top_joint" type="fixed">
+      <origin xyz="-0.01364 0.0  0.3896" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="plate_top_link"/>
+    </joint>  
+    
+    <link name="plate_top_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://pengo_description/meshes/stacks/hexagons/plate_top.dae"/>
+        </geometry>
+      </visual>  
+      <collision>
+        <origin xyz="0.01364 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.006" radius="0.170"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.520"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.003328" ixy="0.0" ixz="0.0"
+                 iyy="0.003328" iyz="0.0"
+                 izz="0.006656" />
+      </inertial>
+    </link>
+    
+    
+    <link name="laptop_link">
+      <visual name="visual">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+	  <mesh filename="package://pengo_description/meshes/laptop/laptop.dae" scale="0.73 0.73 0.73"/>
+        </geometry>
+      </visual>
+    </link>
+    
+    <joint name="laptop_to_parent" type="fixed">
+      <origin xyz="0 0.0 0.13" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="laptop_link"/>
+    </joint>
+
+    <link name="rplidar_link">
+      <visual name="visual">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+	  <mesh filename="package://pengo_description/meshes/sensors/rp_lidar.dae"/>
+        </geometry>
+      </visual>
+      <collision name="collision">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<geometry>
+	  <cylinder length="0.02" radius="0.035"/>
+        </geometry>
+      </collision>      
+    </link>
+
+    <joint name="body_to_hokuyo" type="fixed">
+      <origin xyz="0.05 0.0 0.12" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="rplidar_link"/>
+    </joint>
+
+      <gazebo reference="rplidar_link">
+	<sensor name="rplidar" type="ray">
+	  <ray>
+	    <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.1415</min_angle>
+              <max_angle>3.1415</max_angle>
+            </horizontal> 
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>6</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="laser" filename="libRayPlugin.so" />
+        <always_on>1</always_on>
+        <update_rate>6</update_rate>
+        <visualize>1</visualize>
+
+        <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+          <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>6</updateRate>
+          <topicName>/rplidar_scan</topicName>
+          <frameName>/rplidar_link</frameName>
+          <hokuyoMinIntensity>101</hokuyoMinIntensity>
+        </plugin>
+      </sensor>
+    </gazebo>
+    
+  </xacro:macro>
+</robot>

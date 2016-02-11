@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+    - Base      : kobuki
+    - Stacks    : hexagons
+    - 3d Sensor : realsense
+-->    
+<robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find pengo_description)/urdf/turtlebot_library.urdf.xacro" />
+  
+  <kobuki/>
+  <stack_hexagons parent="base_link"/>
+  <sensor_realsense_stand parent="base_link" x="0" y="0" z="0.418" roll="0" pitch="0" yaw="0"/>
+  <sensor_realsense  parent="realsense_screen_stand"/>
+</robot>
