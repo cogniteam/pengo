@@ -40,3 +40,7 @@ where
    - z - not used
 
 If angles are more then the specified ranges, camera rotates to the closest value (to maximum or to minimum).
+
+##Screenshot
+
+![alt tag](https://cloud.githubusercontent.com/assets/2683284/12974443/b0bbb9f6-d0bc-11e5-8679-f7cc50bc75d2.png)
