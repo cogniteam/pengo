@@ -26,7 +26,7 @@
     <param name="publish_frequency" type="double" value="30.0" />
   </node>
 
-  <node pkg="nodelet" type="nodelet" name="laserscan_nodelet_manager" args="manager"/>
+<!--   <node pkg="nodelet" type="nodelet" name="laserscan_nodelet_manager" args="manager"/>
   <node pkg="nodelet" type="nodelet" name="depthimage_to_laserscan"
         args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet laserscan_nodelet_manager">
     <param name="scan_height" value="10"/>
@@ -34,12 +34,13 @@
     <param name="range_min" value="0.45"/>
     <remap from="image" to="/camera/depth/image_raw"/>
     <remap from="scan" to="/scan"/>
-  </node>
+  </node> -->
   
   <node name="controller_spawner" pkg="controller_manager" type="spawner"
   args="$(find pengo)/config/camera_config.yaml" output="screen" respawn="true"/>
 
   <node name="camera_movement_node" pkg="camera_movement_controller" type="camera_movement_node">
+    <remap from="/set_angle" to="/pengo/commands/ptz" />
     <param name="base_vel" value="0.8"/>
     <param name="gimbal_vel" value="0.8"/>
     <param name="base_angle_limit/min" value="-1.57"/>
@@ -47,5 +48,9 @@
     <param name="gimbal_angle_limit/min" value="-1.57"/>
     <param name="gimbal_angle_limit/max" value="1.57"/>
   </node>
+
+  <node name="camera_to_realsense_tf" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 -0.5 0.5 -0.5 0.5 camera_base realsense" />
+
+  <node name="arm_tilt_tf" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 1 realsense_plate_stand arm_tilt" />
 	
 </launch>

@@ -286,8 +286,8 @@
           <gaussianNoise>0.005</gaussianNoise>
           <alwaysOn>true</alwaysOn>
           <updateRate>6</updateRate>
-          <topicName>/rplidar_scan</topicName>
-          <frameName>/rplidar_link</frameName>
+          <topicName>/scan</topicName>
+          <frameName>/base_footprint</frameName>
           <hokuyoMinIntensity>101</hokuyoMinIntensity>
         </plugin>
       </sensor>
