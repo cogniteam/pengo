@@ -3,6 +3,7 @@ Install turtlebot_simulator package
 ```
    $ sudo apt-get install ros-indigo-turtlebot-simulator
    $ sudo apt-get install ros-indigo-turtlebot-apps ros-indigo-turtlebot-rviz-launchers
+   $ sudo apt-get install ros-indigo-ros-controllers ros-indigo-gazebo-ros-control ros-indigo-controller-manager
 ```
 Copy Pengo project from the GitHub
 ```
